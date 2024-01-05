@@ -1,0 +1,9 @@
+D:\220911638\lab 1\q1\q1\bin\Debug\q1.exe.config
+D:\220911638\lab 1\q1\q1\bin\Debug\q1.exe
+D:\220911638\lab 1\q1\q1\bin\Debug\q1.pdb
+D:\220911638\lab 1\q1\q1\obj\Debug\q1.csprojResolveAssemblyReference.cache
+D:\220911638\lab 1\q1\q1\obj\Debug\q1.Form1.resources
+D:\220911638\lab 1\q1\q1\obj\Debug\q1.Properties.Resources.resources
+D:\220911638\lab 1\q1\q1\obj\Debug\q1.csproj.GenerateResource.Cache
+D:\220911638\lab 1\q1\q1\obj\Debug\q1.exe
+D:\220911638\lab 1\q1\q1\obj\Debug\q1.pdb

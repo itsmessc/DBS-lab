@@ -1,9 +1,0 @@
-D:\220911638\lab 1\q2\q2\bin\Debug\q2.exe.config
-D:\220911638\lab 1\q2\q2\bin\Debug\q2.exe
-D:\220911638\lab 1\q2\q2\bin\Debug\q2.pdb
-D:\220911638\lab 1\q2\q2\obj\Debug\q2.Form1.resources
-D:\220911638\lab 1\q2\q2\obj\Debug\q2.Properties.Resources.resources
-D:\220911638\lab 1\q2\q2\obj\Debug\q2.csproj.GenerateResource.Cache
-D:\220911638\lab 1\q2\q2\obj\Debug\q2.exe
-D:\220911638\lab 1\q2\q2\obj\Debug\q2.pdb
-D:\220911638\lab 1\q2\q2\obj\Debug\q2.csprojResolveAssemblyReference.cache

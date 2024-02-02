@@ -1,0 +1,83 @@
+create table PERSON(
+ driverid varchar(30),
+ name varchar(30),
+ address varchar(100),
+ primary key (driverid));
+
+create table CAR(
+   regno varchar(20),
+   model varchar(30),
+   year int,
+   primary key(regno));
+
+create table ACCIDENT(
+    report_number int,
+    acc_date date,
+    location varchar(50),
+    primary key(report_number));
+
+ create table OWNS(
+    driverid varchar(30),
+    regno varchar(20));
+
+ALTER table OWNS
+    ADD FOREIGN KEY (driverid) REFERENCES PERSON(driverid);
+
+ALTER table OWNS
+    ADD FOREIGN KEY (regno) REFERENCES CAR(regno);
+
+ create table PARTICIPATED(
+    driverid varchar(30),
+    regno varchar(20),
+    report_number int,
+    damage_amount int);
+
+ALTER table PARTICIPATED
+    ADD FOREIGN KEY (driverid) REFERENCES PERSON(driverid);
+
+ALTER table PARTICIPATED
+    ADD FOREIGN KEY (regno) REFERENCES CAR(regno);
+
+ALTER table PARTICIPATED
+    ADD FOREIGN KEY (report_number) REFERENCES ACCIDENT(report_number);
+
+insert into PERSON values('KA20 2019324', 'AKSHAY', 'MANIPAL');
+insert into PERSON values('KA20 2015478', 'AMAN', 'MANIPAL');
+insert into PERSON values('KA19 9853147', 'ARAYAN', 'MANGLORE');
+insert into PERSON values('KA19 2982145', 'SOUBHIK', 'MANGLORE');
+insert into PERSON values('KA20 2895341', 'VISHAL', 'MANIPAL');
+
+
+insert into CAR values('KA20 S8473', 'MG Astor', 2018);
+insert into CAR values('KA22 S6325', 'Hyundai Creta', 2015);
+insert into CAR values('KA20 S2345', 'Tata Nexon', 2016);
+insert into CAR values('KA21 S3514', 'Maruti Suzuki Baleno', 2014);
+insert into CAR values('KA19 S1452', 'Hyundai Creta', 2020);
+
+insert into ACCIDENT values(11, '2019-10-05', 'MANIPAL');
+insert into ACCIDENT values(1, '2020-09-14', 'MANGLORE');
+insert into ACCIDENT values(12, '2018-02-16', 'UDUIPI');
+insert into ACCIDENT values(7, '2019-11-17', 'MANIPAL');
+insert into ACCIDENT values(9, '2016-07-30', 'UDUIPI');
+
+insert into OWNS values('KA20 2019324', 'KA20 S8473');
+insert into OWNS values('KA20 2015478', 'KA22 S6325');
+insert into OWNS values('KA19 9853147', 'KA20 S2345');
+insert into OWNS values('KA19 2982145', 'KA21 S3514');
+insert into OWNS values('KA20 2895341', 'KA19 S1452');
+
+insert into PARTICIPATED values('KA20 2019324', 'KA20 S8473', 5, 19000);
+insert into PARTICIPATED values('KA20 2015478', 'KA22 S6325', 11, 5000);
+insert into PARTICIPATED values('KA19 9853147', 'KA20 S2345', 7, 5000);
+insert into PARTICIPATED values('KA19 2982145', 'KA21 S3514', 9, 15000);
+ insert into PARTICIPATED values('KA20 2895341', 'KA19 S1452', 12, 3000);
+
+III) UPDATE PARTICIPATED SET DAMAGE_AMOUNT = 25000 WHERE (REPORT_NUMBER = 12 AND REGNO = 'KA19 S1452');
+
+IV) DELETE FROM PARTICIPATED WHERE report_number IN (SELECT report_number FROM ACCIDENT WHERE EXTRACT(YEAR FROM acc_date) = 2018);
+     DELETE FROM ACCIDENT WHERE EXTRACT(YEAR FROM acc_date)=2018;
+
+V)  ALTER TABLE OWNS ADD (PRICE INT);
+   ALTER TABLE OWNS DROP COLUMN PRICE;
+
+VI)  ALTER table PARTICIPATED ADD (check(damage_amount > 0));

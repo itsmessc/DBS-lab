@@ -1,0 +1,108 @@
+-- Create the STUDENT table
+CREATE TABLE STUDENT (
+    regno VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(50),
+    major VARCHAR(20),
+    bdate DATE
+);
+
+-- Create the COURSE table
+CREATE TABLE COURSE (
+    course# INT PRIMARY KEY,
+    cname VARCHAR(30),
+    dept VARCHAR(30)
+);
+
+-- Create the ENROLL table
+CREATE TABLE ENROLL (
+    regno VARCHAR(20),
+    course# INT,
+    PRIMARY KEY (regno, course#),
+    FOREIGN KEY (regno) REFERENCES STUDENT(regno),
+    FOREIGN KEY (course#) REFERENCES COURSE(course#)
+);
+
+-- Create the BOOK_ADOPTION table
+CREATE TABLE BOOK_ADOPTION (
+    course# INT,
+    sem INT,
+    book_isbn INT,
+    PRIMARY KEY (course#, sem),
+    FOREIGN KEY (course#) REFERENCES COURSE(course#),
+    FOREIGN KEY (book_isbn) REFERENCES TEXT(book_isbn)
+);
+
+-- Create the TEXT table
+CREATE TABLE TEXT (
+    book_isbn INT PRIMARY KEY,
+    booktitle VARCHAR(50),
+    publisher VARCHAR(50),
+    author VARCHAR(50)
+);
+
+INSERT INTO STUDENT VALUES ('R001', 'John Doe', 'Computer Science', '1987-01-01');
+INSERT INTO STUDENT VALUES ('R002', 'Jane Smith', 'Electrical', '1990-02-15');
+INSERT INTO STUDENT VALUES ('R003', 'Bob Johnson', 'Mechanical', '1985-08-20');
+INSERT INTO STUDENT VALUES ('R004', 'Emma Brown', 'Civil Engineering', '1992-03-01');
+INSERT INTO STUDENT VALUES ('R005', 'David Lee', 'Biology', '1989-06-10');
+INSERT INTO STUDENT VALUES ('R006', 'Dom Torr', 'DSE', '1985-05-01');
+
+
+INSERT INTO COURSE VALUES (101, 'Calculus III', 'Mathematics');
+INSERT INTO COURSE VALUES (102, 'Circuits II', 'Electrical');
+INSERT INTO COURSE VALUES (103, 'Thermodynamics', 'Mechanical');
+INSERT INTO COURSE VALUES (104, 'Structural Analysis', 'Civil Engineering');
+INSERT INTO COURSE VALUES (105, 'Genetics Lab', 'Biology');
+
+INSERT INTO ENROLL VALUES ('R001', 101);
+INSERT INTO ENROLL VALUES ('R002', 102); 
+INSERT INTO ENROLL VALUES ('R003', 103);
+INSERT INTO ENROLL VALUES ('R004', 104); 
+INSERT INTO ENROLL VALUES ('R005', 105);
+INSERT INTO ENROLL VALUES ('R001', 102);
+
+
+INSERT INTO BOOK_ADOPTION VALUES (101, 1, 1234567890); 
+INSERT INTO BOOK_ADOPTION VALUES (101, 2, 9876543210); 
+INSERT INTO BOOK_ADOPTION VALUES (102, 1, 2345678901); 
+INSERT INTO BOOK_ADOPTION VALUES (103, 1, 5432109876);
+INSERT INTO BOOK_ADOPTION VALUES (104, 1, 7890123456); 
+INSERT INTO BOOK_ADOPTION VALUES (103, 2, 1234567891);
+
+INSERT INTO TEXT VALUES (1234567890, 'Advanced Calculus', 'Publisher XYZ', 'Author ABC'); 
+INSERT INTO TEXT VALUES (9876543210, 'Introduction to Electricity', 'Publisher DEF', 'Author EFG');
+INSERT INTO TEXT VALUES (2345678901, 'Digital Electronics', 'Publisher HIKL', 'Author JKLMN');
+INSERT INTO TEXT VALUES (5432109876, 'Engineering Thermodynamics', 'Publisher MNOPQ', 'Author RSTUVWX'); 
+INSERT INTO TEXT VALUES (7890123456, 'Analysis of Structures', 'Publisher ZABCD', 'Author FGHIJK');
+INSERT INTO TEXT VALUES (1234567891, 'BASICS OF EEE', 'Publisher XYZ', 'Author RSTUVWX'); 
+
+
+
+
+
+a) SELECT course#
+    FROM BOOK_ADOPTION
+    GROUP BY course#
+    HAVING COUNT(DISTINCT book_isbn)>1;
+
+b) SELECT distinct dept
+  2      FROM COURSE c, BOOK_ADOPTION ba
+  3      WHERE c.course# = ba.course#
+  4      AND ba.BOOK_ISBN IN (SELECT BOOK_ISBN FROM TEXT WHERE PUBLISHER = 'Publisher XYZ');
+
+c) select distinct regno from enroll group by regno having count(regno)>1;
+
+d) select name from student minus(select name from student where regno in (select regno from enroll));
+		(or)
+	
+select name from student minus(select name from student,enroll where enroll.regno=student.regno);
+
+e) delete from book_adoption where book_isbn=1234567891;
+	(not completed yet)
+
+f)SELECT DISTINCT course#
+FROM BOOK_ADOPTION,TEXT
+WHERE TEXT.publisher='Publisher XYZ'
+GROUP BY course#
+HAVING COUNT(course#) >= 2
+ORDER BY course#;

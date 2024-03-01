@@ -1,0 +1,50 @@
+set serveroutput on
+
+2)CREATE OR REPLACE TRIGGER driver_info
+AFTER INSERT ON participated
+FOR EACH ROW
+DECLARE 
+    did person.driverid%TYPE;
+    n person.name%TYPE;
+    adr person.address%TYPE;
+BEGIN
+    did := :new.driverid;
+    SELECT name, address INTO n, adr FROM person WHERE driverid = did;
+    DBMS_OUTPUT.PUT_LINE('Name:' || n || ' Driver ID:' || did || ' Address:' || adr);
+DBMS_OUTPUT.PUT_LINE('Has participated in accident');
+END;
+
+
+3)CREATE OR REPLACE FUNCTION noofacc(x IN varchar2)
+RETURN number
+IS
+noacc number;
+BEGIN
+SELECT COUNT(report_number) INTON noaccFROM ACCIDENT WHERE EXTRACT (YEAR FROM acc_date)=x;
+RETURN noacc;
+END;
+
+ 	DECLARE
+   	 b number;
+   	 BEGIN
+   	 b:=noofacc('2019');
+  	  DBMS_OUTPUT.PUT_LINE('NO OF ACCIDENTS ' || b);
+  	  END;
+	(or)
+	SELECT noofacc('2019') FROM dual;
+
+
+4)CREATE OR REPLACE PROCEDURE damage(didby IN VARCHAR2, yearin IN VARCHAR2)
+AS 
+    totd NUMBER;
+BEGIN
+    SELECT SUM(damage_amount) INTO totd
+    FROM PARTICIPATED
+    WHERE report_number IN (SELECT report_number FROM ACCIDENT WHERE EXTRACT(YEAR FROM acc_date) = yearin) AND driverid = didby;
+    DBMS_OUTPUT.PUT_LINE('TOTAL DAMAGE: ' || totd);
+END;	
+/
+	
+execute damage('KA20 2015478','2019');
+(NOT YET FINISHED)
+5)‬‬

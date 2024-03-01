@@ -106,3 +106,5 @@ WHERE TEXT.publisher='Publisher XYZ'
 GROUP BY course#
 HAVING COUNT(course#) >= 2
 ORDER BY course#;
+
+(YET TO FINISH)

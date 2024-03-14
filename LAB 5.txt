@@ -110,4 +110,22 @@ from book_adoption natural join text
 group by publisher,course#
 having count(publisher)>1
 
-(YET TO FINISH)
+g)SELECT name, COUNT(book_isbn) as count
+FROM student NATURAL JOIN enroll NATURAL JOIN book_adoption
+GROUP BY name
+HAVING COUNT(book_isbn) = (SELECT MAX(cnt) 
+                           FROM (SELECT COUNT(book_isbn) as cnt
+                                 FROM student NATURAL JOIN enroll NATURAL JOIN book_adoption
+                                 GROUP BY name)
+                          );
+
+h)select publisher,count(publisher) as count from text group by publisher;
+
+I)select name
+from student natural join enroll natural join course natural join book_adoption
+group by name
+
+j)create view jio as select name 
+from student natural join enroll natural join course natural join book_adoption 
+group by name 
+

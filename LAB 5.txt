@@ -85,10 +85,11 @@ a) SELECT course#
     GROUP BY course#
     HAVING COUNT(DISTINCT book_isbn)>1;
 
-b) SELECT distinct dept
-  2      FROM COURSE c, BOOK_ADOPTION ba
-  3      WHERE c.course# = ba.course#
-  4      AND ba.BOOK_ISBN IN (SELECT BOOK_ISBN FROM TEXT WHERE PUBLISHER = 'Publisher XYZ');
+b) select dept,author
+from course natural join book_adoption natural join TEXT
+group by author,dept
+order by dept 
+
 
 c) select distinct regno from enroll group by regno having count(regno)>1;
 

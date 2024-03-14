@@ -101,14 +101,13 @@ d) select name from student minus(select name from student where regno in (selec
 	
 select name from student minus(select name from student,enroll where enroll.regno=student.regno);
 
-e) delete from book_adoption where book_isbn=1234567891;
-	(not completed yet)
+e) select booktitle
+from text natural join book_adoption natural join enroll natural join course
+group by booktitle
 
-f)SELECT DISTINCT course#
-FROM BOOK_ADOPTION,TEXT
-WHERE TEXT.publisher='Publisher XYZ'
-GROUP BY course#
-HAVING COUNT(course#) >= 2
-ORDER BY course#;
+f)select course#
+from book_adoption natural join text
+group by publisher,course#
+having count(publisher)>1
 
 (YET TO FINISH)

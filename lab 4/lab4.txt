@@ -26,11 +26,12 @@ ORDER BY
     TOTAL_DAMAGE DESC;
 
 
-iv) (NOT THE EXACTLY REQUIRED THING BUT WORKS)
-SELECT driverid
-FROM PARTICIPATED NATURAL JOIN ACCIDENT 
-WHERE extract(year from acc_date) = '2019' 
-HAVING COUNT(report_number)>1 
-GROUP BY driverid;
+iv) 
+SELECT driverid,extract(YEAR FROM acc_date),count(driverid)
+FROM participated
+NATURAL JOIN accident
+GROUP BY extract(YEAR FROM acc_date), driverid
+HAVING COUNT(driverid) > 0
+order by extract(YEAR FROM acc_date) desc
 
 v) SELECT PERSON.NAME FROM PERSON MINUS (SELECT DISTINCT PERSON.NAME FROM PERSON,PARTICIPATED WHERE PERSON.DRIVERID = PARTICIPATED.DRIVERID);

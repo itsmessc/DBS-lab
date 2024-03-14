@@ -91,7 +91,10 @@ group by author,dept
 order by dept 
 
 
-c) select distinct regno from enroll group by regno having count(regno)>1;
+c) select name
+from student natural join enroll natural join course
+group by name
+having count(name)>1
 
 d) select name from student minus(select name from student where regno in (select regno from enroll));
 		(or)

@@ -1,0 +1,15 @@
+create table persons(
+    id int,
+    lname varchar(20),
+    fname varchar(20),
+    address varchar(50),
+    city varchar(20),
+    primary key(id));
+
+
+INSERT INTO Persons VALUES (1, 'Smith', 'John', '123 Main St', 'New York');
+INSERT INTO Persons VALUES (2, 'Johnson', 'Jane', '456 Elm St', 'Los Angeles');
+INSERT INTO Persons VALUES (3, 'Williams', 'Bob', '789 Oak St', 'Chicago');
+INSERT INTO Persons VALUES (4, 'Brown', 'David', '101 Maple St', 'Houston');
+INSERT INTO Persons VALUES (5, 'Davis', 'Emily', '203 Pine St', 'Phoenix');
+
